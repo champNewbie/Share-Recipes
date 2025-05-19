@@ -3,12 +3,13 @@ import { NextResponse } from "next/server"
 
 const prisma = new PrismaClient()
 
-export async function GET (req : Request, {params} : {params : {id : string }}) {
+export async function GET (req : Request,  context: { params: Promise<{ id: string }> }) {
+    const { id } = await context.params
+    const userId = Number(id)
     try {
-       const userId =  await Number(params)
         if (isNaN(userId)) {
             return NextResponse.json(
-                { success: false, error: "Invalid ID format" },
+                { success: false, error: "Invalid ID format" , userId : userId},
                 { status: 400 }
             )
         }
@@ -17,16 +18,17 @@ export async function GET (req : Request, {params} : {params : {id : string }}) 
                 userId,
             }
         })
-        return NextResponse.json({success : true,data:menu})
+        return NextResponse.json(menu)
     } catch (error) {
         console.log('error' , error)
         return NextResponse.json({error,success : false})
     }
 }
 
-export async function POST (req : Request , {params }: {params : {id: string}}) {
+export async function POST (req : Request , context: { params: Promise<{ id: string }> }) {
+    const { id } = await context.params
+    const userId = Number(id)
     try {
-        const userId = await Number(params.id)
         const {menuName , describe } = await req.json()
         const menu = await prisma.recipe.create({
             data:{

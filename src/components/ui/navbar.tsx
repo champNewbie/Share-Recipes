@@ -1,6 +1,6 @@
 import React , {useEffect,useState} from 'react'
 import axios from 'axios'
-import { useParams, useRouter } from 'next/navigation';
+import { redirect, useParams, useRouter } from 'next/navigation';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,6 +22,7 @@ import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar'
 const navbar = () => {
   const [showUser , setShowUser] = useState<string>('')
   const params = useParams() //ใช้ useParams ในการรับค่า params จาก path
+  const route = useRouter()
   useEffect(() => {
     const fetchUser = async () => {
       const id = Number(params.id)
@@ -32,12 +33,13 @@ const navbar = () => {
     fetchUser()
   },[showUser])
   return (
+
     <div>
         <div className='w-full h-20 bg-black flex flex-row justify-between items-center px-10'>
-          <h1 className='text-white text-3xl font-bold'>Share-Recipe</h1>
+          <h1 className='text-white text-3xl font-bold'>Recipes</h1>
           <div className='flex justify-between items-center'>
-              <Button className='bg-white text-black hover:bg-gray-400 duration-300 ease-in
-              text-xl px-5 py-5 cursor-pointer'>Share</Button>
+              <Button onClick={() => route.push('/edit')} className='bg-white text-black hover:bg-gray-200 duration-300 ease-in
+              text-xl px-5 py-5 cursor-pointer'>Create</Button>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Avatar className='ml-5 text-xl px-5 py-5 bg-white text-black cursor-pointer'>
@@ -66,30 +68,12 @@ const navbar = () => {
                     </DropdownMenuItem>
                   </DropdownMenuGroup>
                   <DropdownMenuSeparator />
-                  <DropdownMenuGroup>
-                    <DropdownMenuItem>Team</DropdownMenuItem>
-                    <DropdownMenuSub>
-                      <DropdownMenuSubTrigger>Invite users</DropdownMenuSubTrigger>
-                      <DropdownMenuPortal>
-                        <DropdownMenuSubContent>
-                          <DropdownMenuItem>Email</DropdownMenuItem>
-                          <DropdownMenuItem>Message</DropdownMenuItem>
-                          <DropdownMenuSeparator />
-                          <DropdownMenuItem>More...</DropdownMenuItem>
-                        </DropdownMenuSubContent>
-                      </DropdownMenuPortal>
-                    </DropdownMenuSub>
-                    <DropdownMenuItem>
-                      New Team
-                      <DropdownMenuShortcut>⌘+T</DropdownMenuShortcut>
-                    </DropdownMenuItem>
-                  </DropdownMenuGroup>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem>GitHub</DropdownMenuItem>
                   <DropdownMenuItem>Support</DropdownMenuItem>
                   <DropdownMenuItem disabled>API</DropdownMenuItem>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => redirect('/')}>
                     Log out
                     <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
                   </DropdownMenuItem>
