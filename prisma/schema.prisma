@@ -32,4 +32,5 @@ model recipe {
   updateAt DateTime @updatedAt
   user users @relation(fields: [userId], references: [id])
   userId Int
+  image String?
 }

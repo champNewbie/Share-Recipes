@@ -2136,6 +2136,7 @@ export namespace Prisma {
     createdAt: Date | null
     updateAt: Date | null
     userId: number | null
+    image: string | null
   }
 
   export type RecipeMaxAggregateOutputType = {
@@ -2145,6 +2146,7 @@ export namespace Prisma {
     createdAt: Date | null
     updateAt: Date | null
     userId: number | null
+    image: string | null
   }
 
   export type RecipeCountAggregateOutputType = {
@@ -2154,6 +2156,7 @@ export namespace Prisma {
     createdAt: number
     updateAt: number
     userId: number
+    image: number
     _all: number
   }
 
@@ -2175,6 +2178,7 @@ export namespace Prisma {
     createdAt?: true
     updateAt?: true
     userId?: true
+    image?: true
   }
 
   export type RecipeMaxAggregateInputType = {
@@ -2184,6 +2188,7 @@ export namespace Prisma {
     createdAt?: true
     updateAt?: true
     userId?: true
+    image?: true
   }
 
   export type RecipeCountAggregateInputType = {
@@ -2193,6 +2198,7 @@ export namespace Prisma {
     createdAt?: true
     updateAt?: true
     userId?: true
+    image?: true
     _all?: true
   }
 
@@ -2289,6 +2295,7 @@ export namespace Prisma {
     createdAt: Date
     updateAt: Date
     userId: number
+    image: string | null
     _count: RecipeCountAggregateOutputType | null
     _avg: RecipeAvgAggregateOutputType | null
     _sum: RecipeSumAggregateOutputType | null
@@ -2317,6 +2324,7 @@ export namespace Prisma {
     createdAt?: boolean
     updateAt?: boolean
     userId?: boolean
+    image?: boolean
     user?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["recipe"]>
 
@@ -2327,6 +2335,7 @@ export namespace Prisma {
     createdAt?: boolean
     updateAt?: boolean
     userId?: boolean
+    image?: boolean
     user?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["recipe"]>
 
@@ -2337,6 +2346,7 @@ export namespace Prisma {
     createdAt?: boolean
     updateAt?: boolean
     userId?: boolean
+    image?: boolean
     user?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["recipe"]>
 
@@ -2347,9 +2357,10 @@ export namespace Prisma {
     createdAt?: boolean
     updateAt?: boolean
     userId?: boolean
+    image?: boolean
   }
 
-  export type recipeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "menuName" | "describe" | "createdAt" | "updateAt" | "userId", ExtArgs["result"]["recipe"]>
+  export type recipeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "menuName" | "describe" | "createdAt" | "updateAt" | "userId" | "image", ExtArgs["result"]["recipe"]>
   export type recipeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | usersDefaultArgs<ExtArgs>
   }
@@ -2372,6 +2383,7 @@ export namespace Prisma {
       createdAt: Date
       updateAt: Date
       userId: number
+      image: string | null
     }, ExtArgs["result"]["recipe"]>
     composites: {}
   }
@@ -2802,6 +2814,7 @@ export namespace Prisma {
     readonly createdAt: FieldRef<"recipe", 'DateTime'>
     readonly updateAt: FieldRef<"recipe", 'DateTime'>
     readonly userId: FieldRef<"recipe", 'Int'>
+    readonly image: FieldRef<"recipe", 'String'>
   }
     
 
@@ -3248,7 +3261,8 @@ export namespace Prisma {
     describe: 'describe',
     createdAt: 'createdAt',
     updateAt: 'updateAt',
-    userId: 'userId'
+    userId: 'userId',
+    image: 'image'
   };
 
   export type RecipeScalarFieldEnum = (typeof RecipeScalarFieldEnum)[keyof typeof RecipeScalarFieldEnum]
@@ -3268,6 +3282,14 @@ export namespace Prisma {
   };
 
   export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   /**
@@ -3406,6 +3428,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"recipe"> | Date | string
     updateAt?: DateTimeFilter<"recipe"> | Date | string
     userId?: IntFilter<"recipe"> | number
+    image?: StringNullableFilter<"recipe"> | string | null
     user?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }
 
@@ -3416,6 +3439,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updateAt?: SortOrder
     userId?: SortOrder
+    image?: SortOrderInput | SortOrder
     user?: usersOrderByWithRelationInput
   }
 
@@ -3429,6 +3453,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"recipe"> | Date | string
     updateAt?: DateTimeFilter<"recipe"> | Date | string
     userId?: IntFilter<"recipe"> | number
+    image?: StringNullableFilter<"recipe"> | string | null
     user?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }, "id">
 
@@ -3439,6 +3464,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updateAt?: SortOrder
     userId?: SortOrder
+    image?: SortOrderInput | SortOrder
     _count?: recipeCountOrderByAggregateInput
     _avg?: recipeAvgOrderByAggregateInput
     _max?: recipeMaxOrderByAggregateInput
@@ -3456,6 +3482,7 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"recipe"> | Date | string
     updateAt?: DateTimeWithAggregatesFilter<"recipe"> | Date | string
     userId?: IntWithAggregatesFilter<"recipe"> | number
+    image?: StringNullableWithAggregatesFilter<"recipe"> | string | null
   }
 
   export type usersCreateInput = {
@@ -3527,6 +3554,7 @@ export namespace Prisma {
     describe: string
     createdAt?: Date | string
     updateAt?: Date | string
+    image?: string | null
     user: usersCreateNestedOneWithoutRecipesInput
   }
 
@@ -3537,6 +3565,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updateAt?: Date | string
     userId: number
+    image?: string | null
   }
 
   export type recipeUpdateInput = {
@@ -3544,6 +3573,7 @@ export namespace Prisma {
     describe?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     user?: usersUpdateOneRequiredWithoutRecipesNestedInput
   }
 
@@ -3554,6 +3584,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: IntFieldUpdateOperationsInput | number
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type recipeCreateManyInput = {
@@ -3563,6 +3594,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updateAt?: Date | string
     userId: number
+    image?: string | null
   }
 
   export type recipeUpdateManyMutationInput = {
@@ -3570,6 +3602,7 @@ export namespace Prisma {
     describe?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type recipeUncheckedUpdateManyInput = {
@@ -3579,6 +3612,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
     userId?: IntFieldUpdateOperationsInput | number
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -3711,9 +3745,29 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type StringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
   export type UsersScalarRelationFilter = {
     is?: usersWhereInput
     isNot?: usersWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type recipeCountOrderByAggregateInput = {
@@ -3723,6 +3777,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updateAt?: SortOrder
     userId?: SortOrder
+    image?: SortOrder
   }
 
   export type recipeAvgOrderByAggregateInput = {
@@ -3737,6 +3792,7 @@ export namespace Prisma {
     createdAt?: SortOrder
     updateAt?: SortOrder
     userId?: SortOrder
+    image?: SortOrder
   }
 
   export type recipeMinOrderByAggregateInput = {
@@ -3746,11 +3802,30 @@ export namespace Prisma {
     createdAt?: SortOrder
     updateAt?: SortOrder
     userId?: SortOrder
+    image?: SortOrder
   }
 
   export type recipeSumOrderByAggregateInput = {
     id?: SortOrder
     userId?: SortOrder
+  }
+
+  export type StringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    mode?: QueryMode
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
   export type recipeCreateNestedManyWithoutUserInput = {
@@ -3815,6 +3890,10 @@ export namespace Prisma {
     create?: XOR<usersCreateWithoutRecipesInput, usersUncheckedCreateWithoutRecipesInput>
     connectOrCreate?: usersCreateOrConnectWithoutRecipesInput
     connect?: usersWhereUniqueInput
+  }
+
+  export type NullableStringFieldUpdateOperationsInput = {
+    set?: string | null
   }
 
   export type usersUpdateOneRequiredWithoutRecipesNestedInput = {
@@ -3919,11 +3998,54 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedStringNullableFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableFilter<$PrismaModel> | string | null
+  }
+
+  export type NestedStringNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: string | StringFieldRefInput<$PrismaModel> | null
+    in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    notIn?: string[] | ListStringFieldRefInput<$PrismaModel> | null
+    lt?: string | StringFieldRefInput<$PrismaModel>
+    lte?: string | StringFieldRefInput<$PrismaModel>
+    gt?: string | StringFieldRefInput<$PrismaModel>
+    gte?: string | StringFieldRefInput<$PrismaModel>
+    contains?: string | StringFieldRefInput<$PrismaModel>
+    startsWith?: string | StringFieldRefInput<$PrismaModel>
+    endsWith?: string | StringFieldRefInput<$PrismaModel>
+    not?: NestedStringNullableWithAggregatesFilter<$PrismaModel> | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedStringNullableFilter<$PrismaModel>
+    _max?: NestedStringNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel> | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type recipeCreateWithoutUserInput = {
     menuName: string
     describe: string
     createdAt?: Date | string
     updateAt?: Date | string
+    image?: string | null
   }
 
   export type recipeUncheckedCreateWithoutUserInput = {
@@ -3932,6 +4054,7 @@ export namespace Prisma {
     describe: string
     createdAt?: Date | string
     updateAt?: Date | string
+    image?: string | null
   }
 
   export type recipeCreateOrConnectWithoutUserInput = {
@@ -3970,6 +4093,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"recipe"> | Date | string
     updateAt?: DateTimeFilter<"recipe"> | Date | string
     userId?: IntFilter<"recipe"> | number
+    image?: StringNullableFilter<"recipe"> | string | null
   }
 
   export type usersCreateWithoutRecipesInput = {
@@ -4028,6 +4152,7 @@ export namespace Prisma {
     describe: string
     createdAt?: Date | string
     updateAt?: Date | string
+    image?: string | null
   }
 
   export type recipeUpdateWithoutUserInput = {
@@ -4035,6 +4160,7 @@ export namespace Prisma {
     describe?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type recipeUncheckedUpdateWithoutUserInput = {
@@ -4043,6 +4169,7 @@ export namespace Prisma {
     describe?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type recipeUncheckedUpdateManyWithoutUserInput = {
@@ -4051,6 +4178,7 @@ export namespace Prisma {
     describe?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

@@ -1,7 +1,13 @@
 import { PrismaClient } from "@/generated/prisma"
 import { NextResponse } from "next/server"
+import {v2 as cloudinary} from 'cloudinary'
 
 const prisma = new PrismaClient()
+cloudinary.config({
+    cloud_name : process.env.CLOUDINARY_NAME,
+    api_key : process.env.CLOUDINARY_API_KEY,
+    api_secret : process.env.CLOUDINARY_API_SECRET_KEY
+})
 
 export async function GET (req : Request,  context: { params: Promise<{ id: string }> }) {
     const { id } = await context.params
@@ -40,26 +46,6 @@ export async function PUT(req : Request, props: {params : Promise<{id : string}>
             }
         })
         return NextResponse.json({success : true,data : updateMenu})
-    } catch (error) {
-        console.log('error' , error)
-        return NextResponse.json({error,success : false})
-    }
-}
-export async function DELETE(
-    req : Request,
-    props: {params : Promise<{id : string , recipeId : string}>}
-) {
-    const params = await props.params;
-    try {
-        const userId = await Number(params.id)
-        const recipeId = await Number(params.recipeId)
-        await prisma.recipe.delete({
-            where:{
-                id : recipeId ,
-                userId : userId
-            }
-        })
-        return NextResponse.json({mess : 'delete successfully' , success : true})
     } catch (error) {
         console.log('error' , error)
         return NextResponse.json({error,success : false})

@@ -21,6 +21,7 @@ model users {
   password  String
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt
+  recipes   recipe[]
 }
 
 model recipe {
@@ -29,4 +30,7 @@ model recipe {
   describe  String
   createdAt DateTime @default(now())
   updateAt  DateTime @updatedAt
+  user      users    @relation(fields: [userId], references: [id])
+  userId    Int
+  image     String?
 }

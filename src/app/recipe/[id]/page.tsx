@@ -3,9 +3,8 @@ import * as React from 'react';
 import axios from 'axios';
 import { useParams } from 'next/navigation';
 import Navbar from '@/components/ui/navbar';
-import Card from '@/components/ui/menuCard';
-import { describe } from 'node:test';
-
+import MenuCard from '@/components/ui/menuCard';
+import {Skeleton} from '@/components/ui/skeleton'
 
 const Page = () => {
   const [menuList , setMenuList] = React.useState<any[]>([])
@@ -25,7 +24,6 @@ const Page = () => {
       } else {
         setMenuList([])
       }
-      console.log(menuList)
     } catch (err) {
       console.error("Error fetching menu data:", err);
     } 
@@ -38,14 +36,17 @@ const Page = () => {
   return (
     <div>
       <Navbar />
+      { menuList.length == 0 && (
+          <div className='flex justify-center items-center h-200'>
+            <h1 className='text-5xl font-bold my-auto'>No Menu Recipe</h1>
+          </div>)
+      }
       <div className="w-full p-4 ">
-        <div className="grid gap-y-10 gap-x-10 grid-rows-3 md:grid-cols-3 "> 
-          { menuList.length === 0 ? (
-            <p>No menu</p>
-          ) : (
+        <div className="grid gap-y-10 gap-x-10 lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2 "> 
+          { menuList && (
            menuList.map((menu, index) => (
-            <div className='mx-auto py-auto'>
-              <Card key={index} name={menu.menuName} description={menu.describe} id={menu.id}/>
+            <div key={index} className='mx-auto py-auto'>
+              <MenuCard name={menu.menuName} description={menu.describe} id={menu.id} image={menu.image}/>
             </div>
             
             )))

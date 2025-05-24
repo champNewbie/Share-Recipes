@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { PrismaClient } from '@/generated/prisma';
+import bcrypt from 'bcrypt'
 
 const prisma = new PrismaClient();
 
@@ -41,6 +42,43 @@ export async function GET(request: Request) {
     }
     
     return NextResponse.json({ success: true, data: user });
+  } catch (error) {
+    console.error('Error fetching user:', error);
+    return NextResponse.json(
+      { success: false, error: "Failed to fetch user data" },
+      { status: 500 }
+    );
+  }
+}
+interface users {
+  name : string;
+  email : string;
+  password : string;
+}
+
+export async function PUT(request: Request , context: { params: Promise<{ id: string}> }) {
+  const { id } = await context.params
+  const userId = Number(id)
+  try {
+    // Extract userId from the URL directly to avoid the params.userId error
+    const {name , email , password} = await request.json()
+    
+    if (!name || !email || !password) {
+      return NextResponse.json(
+        { success: false, error: "User ID is required" },
+        { status: 400 }
+      );
+    }
+    const updatePassword = await bcrypt.hash(password , 10)
+    const updateUser = await prisma.users.update({
+      where : {
+        id : userId
+      },
+      data : {
+        name , email , password : updatePassword
+      }
+    })
+    return NextResponse.json({ success: true, data: updateUser });
   } catch (error) {
     console.error('Error fetching user:', error);
     return NextResponse.json(

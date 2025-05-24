@@ -13,9 +13,19 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { useParams, useRouter } from 'next/navigation'
 import axios from 'axios'
-
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 const page = () => {
-  const [name , setName] = useState<string>('')
+  const [menuName , setMenuName] = useState<string>('')
   const [describe , setDescribe] = useState<string>('')
   const [userId , setUserId] = useState<number>(0)
   const params = useParams()
@@ -33,7 +43,7 @@ const page = () => {
         }
         // ตั้งชื่อและคำอธิบายจากข้อมูลแรก (ถ้ามี)
         if (formattedData.length > 0) {
-            setName(formattedData[0].menuName);
+            setMenuName(formattedData[0].menuName);
             setDescribe(formattedData[0].describe);
             setUserId(formattedData[0].userId)
         }
@@ -45,8 +55,7 @@ const page = () => {
     const id = Number(params.id)
     e.preventDefault()
     try {
-        await axios.put(`/api/edit/${id}` , {name , describe})
-        alert('Edit Successfully')
+        await axios.put(`/api/edit/${id}` , {menuName , describe})
         route.push(`/recipe/${userId}`)
     } catch (error) {
         
@@ -57,20 +66,37 @@ const page = () => {
   },[])
 
   return (
-    <div className='flex justify-center h-screen items-center'>
+    <div className='flex justify-center h-screen items-center mx-2'>
         <Card className='w-[50%]'>
         <CardHeader>
             <CardTitle>Edit Detail</CardTitle>
         </CardHeader>
         <CardContent>
             <p>Menu Name</p>
-            <Input value={name} onChange={(e) => setName(e.target.value)}/>
+            <Input value={menuName} onChange={(e) => setMenuName(e.target.value)}/>
         </CardContent>
         <CardContent>
-            <p>Card Content</p>
+            <p>Describe</p>
             <Textarea value={describe} onChange={(e) => setDescribe(e.target.value)}/>
         </CardContent>
-            <Button className='mx-auto w-[50%] cursor-pointer' onClick={fetchData}>Edit</Button>
+        <div className='flex justify-center items-center'>
+        <AlertDialog>
+                <AlertDialogTrigger className='bg-black text-white px-20 py-2 rounded-xl text-lg 
+                cursor-pointer hover:bg-gray-800 duration-300'>Edit</AlertDialogTrigger>
+                <AlertDialogContent>
+                      <AlertDialogHeader>
+                        <AlertDialogTitle>Details</AlertDialogTitle>
+                        <AlertDialogDescription>
+                          Are you sure that update this recipe?
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                      <AlertDialogAction onClick={fetchData} className='cursor-pointer '>Confirm</AlertDialogAction>
+                    <AlertDialogCancel className='cursor-pointer '>Cancel</AlertDialogCancel >
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+          
+          </AlertDialog></div>
         </Card>
     </div>
   )

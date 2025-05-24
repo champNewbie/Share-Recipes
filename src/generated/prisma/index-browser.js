@@ -135,7 +135,8 @@ exports.Prisma.RecipeScalarFieldEnum = {
   describe: 'describe',
   createdAt: 'createdAt',
   updateAt: 'updateAt',
-  userId: 'userId'
+  userId: 'userId',
+  image: 'image'
 };
 
 exports.Prisma.SortOrder = {
@@ -146,6 +147,11 @@ exports.Prisma.SortOrder = {
 exports.Prisma.QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 
 
