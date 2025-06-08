@@ -6,14 +6,16 @@ import Navbar from '@/components/ui/navbar';
 import MenuCard from '@/components/ui/menuCard';
 import {Skeleton} from '@/components/ui/skeleton'
 
-const Page = () => {
+const Page =  () => {
   const [menuList , setMenuList] = React.useState<any[]>([])
+  const [isLoading, setIsLoading] = React.useState(true)
   const params = useParams()
-
+  const id  = Number(params.id)
+  // await new Promise(resolve => setTimeout(resolve, 1000))
+  // const result = await fetch(`http://localhost:3000/api/menu/${id}`)
+  // const recipes = await result.json()
   const fetchData = async () => {
     try {
-      const id  = Number(params.id)
-      
       const response = await axios.get(`/api/menu/${id}`);
       if (response.data) {
          if (Array.isArray(response.data)) {
@@ -34,12 +36,14 @@ const Page = () => {
   }, [params.id]); // Add params.id as dependency
 
   return (
+    
     <div>
       <Navbar />
-      { menuList.length == 0 && (
-          <div className='flex justify-center items-center h-200'>
-            <h1 className='text-5xl font-bold my-auto'>No Menu Recipe</h1>
-          </div>)
+      {menuList.length == 0 && (
+          <div className="flex items-center justify-center h-225">
+              <h1 className='text-3xl font-bold'>No recipes found</h1>
+          </div>
+            )
       }
       <div className="w-full p-4 ">
         <div className="grid gap-y-10 gap-x-10 lg:grid-cols-3 sm:grid-cols-1 md:grid-cols-2 "> 

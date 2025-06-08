@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import axios from 'axios'
+import { Globe } from 'lucide-react'
 
 const page = () => {
   const [email , setEmail] = useState<string>('')

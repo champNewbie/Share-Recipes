@@ -14,19 +14,22 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import axios from 'axios'
-import { Button } from '@/components/ui/button'
 import { useRouter , useParams } from 'next/navigation'
 
 const page = () => {
   const [menuName , setMenuName] = useState<string>('')
   const [describe , setDescribe] = useState<string>('')
   const [image , setImage] = useState<File | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
   const params = useParams()
   const route = useRouter()
   const id = Number(params.id)
 
   const getData = async (e : any) => {
     e.preventDefault()
+    if (!menuName || !describe) return
+
+    setIsLoading(true)
     try {
       const formData = new FormData()
       formData.append('menuName', menuName)
@@ -35,9 +38,12 @@ const page = () => {
         formData.append('image', image)
       }
 
+      // Add a delay before sending the request
+      await new Promise(resolve => setTimeout(resolve, 1000))
+
       const response = await axios.post(`/api/menu/${id}`, formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
       })
 
@@ -46,6 +52,26 @@ const page = () => {
       }
     } catch (error) {
       console.log('error' , error)
+      alert('Failed to create recipe. Please try again.')
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0]
+      // Check file size (max 5MB)
+      if (file.size > 5 * 1024 * 1024) {
+        alert('File size should be less than 5MB')
+        return
+      }
+      // Check file type
+      if (!file.type.startsWith('image/')) {
+        alert('Please upload an image file')
+        return
+      }
+      setImage(file)
     }
   }
 
@@ -73,26 +99,35 @@ const page = () => {
                value={describe} onChange={(e) => setDescribe(e.target.value)}/>
             </div>
 
-            
-        </form>
-        <div className='flex flex-col justify-around items-start mt-2'>
+            <div className='flex flex-col justify-around items-start mt-2'>
             <h1 className='text-xl my-1'>
                 Upload Menu Image
               </h1>
-               <Input type='file' placeholder='Upload Image' className='w-90 cursor-pointer' 
-               onChange={(e) => setImage(e.target.files ? e.target.files[0] : null)} />
+              <Input 
+                type='file' 
+                className='w-90 my-1 cursor-pointer'  
+                placeholder='Upload Image' 
+                onChange={handleImageChange}
+                accept="image/*"
+              />
             </div>
+        </form>
         <div className='mt-5'> 
               <AlertDialog>
-                <AlertDialogTrigger className='bg-black text-white px-10 py-3 rounded-xl text-xl 
-                cursor-pointer hover:bg-gray-800 duration-300' >Continue</AlertDialogTrigger>
+                <AlertDialogTrigger 
+                  className='bg-black text-white px-10 py-3 rounded-xl text-xl 
+                  cursor-pointer hover:bg-gray-800 duration-300'
+                  disabled={isLoading}
+                >
+                  {isLoading ? 'Creating...' : 'Continue'}
+                </AlertDialogTrigger>
                        <AlertDialogContent>
-                    { (!menuName || !describe || !image) ? (
+                    { (!menuName || !describe) ? (
                       <div>
                       <AlertDialogHeader>
                       <AlertDialogTitle>Error</AlertDialogTitle>
                       <AlertDialogDescription>
-                        You must fill menu name, description and Upload Image.
+                        You must fill menu name and description.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
@@ -107,8 +142,14 @@ const page = () => {
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
-                        <AlertDialogAction onClick={getData} className='cursor-pointer '>Confirm</AlertDialogAction>
-                        <AlertDialogCancel className='cursor-pointer '>Cancel</AlertDialogCancel >
+                        <AlertDialogAction 
+                          onClick={getData} 
+                          className='cursor-pointer'
+                          disabled={isLoading}
+                        >
+                          {isLoading ? 'Creating...' : 'Confirm'}
+                        </AlertDialogAction>
+                        <AlertDialogCancel className='cursor-pointer'>Cancel</AlertDialogCancel >
                       </AlertDialogFooter>
                       </div>)
                     }
