@@ -50,12 +50,6 @@ export async function GET(request: Request) {
     );
   }
 }
-interface users {
-  name : string;
-  email : string;
-  password : string;
-}
-
 export async function PUT(request: Request , context: { params: Promise<{ id: string}> }) {
   const { id } = await context.params
   const userId = Number(id)

@@ -1,14 +1,12 @@
 'use client';
 import React from 'react'
 import { useRouter } from 'next/navigation'
-// import { useRouter } from 'next/router';
 import { useState } from 'react'; 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import axios from 'axios'
-import { Globe } from 'lucide-react'
 
-const page = () => {
+const Page = () => {
   const [email , setEmail] = useState<string>('')
   const [password , setPassword] = useState<string>('')
   const route = useRouter()
@@ -73,4 +71,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

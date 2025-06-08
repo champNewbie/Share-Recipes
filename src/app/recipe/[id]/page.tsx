@@ -4,16 +4,18 @@ import axios from 'axios';
 import { useParams } from 'next/navigation';
 import Navbar from '@/components/ui/navbar';
 import MenuCard from '@/components/ui/menuCard';
-import {Skeleton} from '@/components/ui/skeleton'
+
+interface menuList{
+  menuName : string,
+  describe : string,
+  id : string,
+  image : string
+}
 
 const Page =  () => {
-  const [menuList , setMenuList] = React.useState<any[]>([])
-  const [isLoading, setIsLoading] = React.useState(true)
+  const [menuList , setMenuList] = React.useState<menuList[]>([])
   const params = useParams()
   const id  = Number(params.id)
-  // await new Promise(resolve => setTimeout(resolve, 1000))
-  // const result = await fetch(`http://localhost:3000/api/menu/${id}`)
-  // const recipes = await result.json()
   const fetchData = async () => {
     try {
       const response = await axios.get(`/api/menu/${id}`);

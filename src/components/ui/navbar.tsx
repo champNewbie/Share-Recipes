@@ -21,10 +21,10 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import {Button} from '@/components/ui/button'
-import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar'
+import {Avatar, AvatarFallback} from '@/components/ui/avatar'
 
 
-const navbar = () => {
+const Navbar = () => {
   const [showUser , setShowUser] = useState<string>('')
   const params = useParams() //ใช้ useParams ในการรับค่า params จาก path
   const route = useRouter()
@@ -126,4 +126,4 @@ const navbar = () => {
   )
 }
 
-export default navbar
+export default Navbar

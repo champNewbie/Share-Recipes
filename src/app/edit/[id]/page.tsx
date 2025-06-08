@@ -3,12 +3,9 @@ import React, { useEffect, useState } from 'react'
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { useParams, useRouter } from 'next/navigation'
@@ -24,7 +21,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
-const page = () => {
+const Page = () => {
   const [menuName , setMenuName] = useState<string>('')
   const [describe , setDescribe] = useState<string>('')
   const [userId , setUserId] = useState<number>(0)
@@ -51,14 +48,14 @@ const page = () => {
         console.log('error' , error)
     }
   }
-  const fetchData = async (e : any) => {
+  const fetchData = async (e : React.FormEvent) => {
     const id = Number(params.id)
     e.preventDefault()
     try {
         await axios.put(`/api/edit/${id}` , {menuName , describe})
         route.push(`/recipe/${userId}`)
     } catch (error) {
-        
+      console.log('error ' , error)
     }
   }
   useEffect(() => {
@@ -102,4 +99,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 
 
-const page = () => {
+const Page = () => {
   const [name , setName] = useState<string>('')
   const [email , setEmail] = useState<string>('')
   const [password , setPassword] = useState<string>('')
@@ -69,4 +69,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

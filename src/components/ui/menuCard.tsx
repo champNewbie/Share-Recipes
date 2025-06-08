@@ -30,7 +30,7 @@ const MenuCard = ({name , description ,id , image}:recipe) => {
   const params = useParams()
   const [menusList , setMenuList] = useState<any[]>([])
   const [isOpen, setIsOpen] = useState(false)
-  const userId : Number = Number(params.id)
+  const userId : number = Number(params.id)
 
   const fetchMenus = async () => {
     try {
@@ -48,7 +48,7 @@ const MenuCard = ({name , description ,id , image}:recipe) => {
 
   const deleteData = async () => {
     try {
-      for (let i in menusList){
+      for (const i in menusList){
         if(menusList[i].menuName == name){
           try {
             await axios.delete(`/api/menu/${menusList[i].id}`)

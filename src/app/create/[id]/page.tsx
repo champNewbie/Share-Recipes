@@ -16,7 +16,7 @@ import {
 import axios from 'axios'
 import { useRouter , useParams } from 'next/navigation'
 
-const page = () => {
+const Page = () => {
   const [menuName , setMenuName] = useState<string>('')
   const [describe , setDescribe] = useState<string>('')
   const [image , setImage] = useState<File | null>(null)
@@ -25,7 +25,7 @@ const page = () => {
   const route = useRouter()
   const id = Number(params.id)
 
-  const getData = async (e : any) => {
+  const getData = async (e : React.FormEvent) => {
     e.preventDefault()
     if (!menuName || !describe) return
 
@@ -161,4 +161,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page
